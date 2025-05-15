@@ -5,7 +5,7 @@ import credentialsReducer from './credentialSlice';
 
 export const store = configureStore({
   reducer: {
-    auth: persistReducer({ key: 'auth', storage }, credentialsReducer),
+    credentials: persistReducer({ key: 'credentials', storage }, credentialsReducer),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
