@@ -4,8 +4,9 @@ import classNames from 'classnames';
 
 export default function InputField({
   type = 'text',
-  id,
+  label = false,
   name,
+  id = name,
   value,
   onChange,
   onBlur,
@@ -30,7 +31,12 @@ export default function InputField({
   );
 
   return (
-    <>
+    <div>
+      {label && (
+        <label htmlFor={id} className="block mb-1 text-sm font-medium text-neutral-700">
+          {label}
+        </label>  
+      )}
       <input
         type={type}
         id={id}
@@ -45,7 +51,7 @@ export default function InputField({
         {...rest}
       />
       {error && <ErrorMessage message={error} />}
-    </>
+    </div>
   );
 };
 
