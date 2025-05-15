@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import { setClientSecret, setClientId, setServer, authenticated } from '../store/credentialSlice';
+import { setClientSecret, setClientId, setServer, authenticated, unauthenticated } from '../store/credentialSlice';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 function Home() {
-    const { client_id, client_secret, server } = useSelector((state) => state.credentials);
+    const { client_id, client_secret, server, implicit } = useSelector((state) => state.credentials);
     const [loading, setLoading] = useState(false);
     const [errorResponse, setErrorResponse] = useState(false);
 
@@ -24,11 +24,15 @@ function Home() {
                 grant_type: 'client_credentials',
             });
             dispatch(authenticated(data));
+            setErrorResponse(false);
             toast.success('Credentials saved successfully!');
         } catch (e){
-            const { response: { data } } = e;
-            data && setErrorResponse(JSON.stringify(data, null, 4));
+            if(e?.response){
+                const { response: { data } } = e;
+                data && setErrorResponse(JSON.stringify(data, null, 4));
+            }
             toast.error('Failure to connect. Please check your credentials and server.');
+            dispatch(unauthenticated());
         }
         
         setLoading(false);
@@ -68,11 +72,20 @@ function Home() {
                         placeholder="Your client secret"
                     />
 
-                    <Button loading={loading} type="submit" size="md" state="fill" className="w-full">
+                    <Button loading={loading} type="submit" state="fill" className="w-full">
                         Continue
                     </Button>
                 </form>
             </div>
+            {implicit.authenticated && (
+                <div className="bg-white shadow-lg rounded-2xl p-8 my-6 max-w-md w-full">
+                    <p className="text-sm text-neutral-900">
+                        <b>Note:</b> When creating the token, use &nbsp;
+                        <span className="font-medium text-xs underline">{window.location.origin}/oauth/callback</span> as callback URI.
+                    </p>
+                    <Button className="w-full mt-2">Go to Authorize URL</Button>
+                </div>
+            )}
             {errorResponse && (
                 <pre className="sm:mx-auto w-full sm:w-auto max-w-md rounded-md p-3 bg-neutral-900 text-neutral-50 overflow-y-auto my-6">{errorResponse}</pre>
             )}

@@ -30,8 +30,12 @@ const credentialSlice = createSlice({
       state.implicit.authenticated = true;
       state.implicit.access_token = action.payload.access_token;
     },
+    unauthenticated(state) {
+      state.implicit.authenticated = false;
+      state.implicit.access_token = '';
+    },
   },
 });
 
-export const { setClientId, setClientSecret, setServer, authenticated } = credentialSlice.actions;
+export const { setClientId, setClientSecret, setServer, authenticated, unauthenticated } = credentialSlice.actions;
 export default credentialSlice.reducer;
