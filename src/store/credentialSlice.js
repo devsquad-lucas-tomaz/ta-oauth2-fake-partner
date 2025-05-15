@@ -5,13 +5,21 @@ const credentialSlice = createSlice({
   initialState: {
     client_id: '',
     client_secret: '',
+    server: '',
   },
   reducers: {
-    receiveCredentials: (state, action) => {
-      return { ...state, ...action.payload };
+    setClientId(state, action) {
+      state.client_id = action.payload;
+    },
+    setClientSecret(state, action) {
+      state.client_secret = action.payload;
+    },
+    setServer(state, action) {
+      console.log(state, action)
+      state.server = action.payload;
     },
   },
 });
 
-export const { receiveCredentials } = credentialSlice.actions;
+export const { setClientId, setClientSecret, setServer } = credentialSlice.actions;
 export default credentialSlice.reducer;
