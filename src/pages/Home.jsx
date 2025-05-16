@@ -88,7 +88,7 @@ function Home() {
                         </div>
                         <div className="ml-3 text-sm text-neutral-900 not-prose">
                             <p className="break-all">
-                                When creating the token, use &nbsp;
+                                Use &nbsp;
                                     <span className="font-medium underline">{window.location.origin}/oauth/callback</span>
                                 &nbsp;as callback URI.
                             </p>
