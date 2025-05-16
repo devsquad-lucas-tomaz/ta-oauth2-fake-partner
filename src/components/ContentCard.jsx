@@ -28,14 +28,14 @@ const ContentCard = ({ content, loading = false }) => {
 
         <div className="p-3 flex flex-col grow">
           <h2
-            className={`text-lg leading-5 truncate ${
+            className={`text-lg leading-5 truncate font-bold ${
               loading ? 'bg-neutral-50 text-transparent rounded' : 'text-neutral-900 group-hover:underline group-hover:text-[#3E318F]'
             }`}
           >
             {content?.title || 'Loading...'}
           </h2>
           <p
-            className={`mt-1 text-sm font-bold truncate ${
+            className={`mt-1 text-sm font-medium truncate ${
               loading ? 'bg-neutral-50 text-transparent rounded' : 'text-neutral-900 group-hover:underline group-hover:text-[#3E318F]'
             }`}
           >
@@ -43,7 +43,7 @@ const ContentCard = ({ content, loading = false }) => {
           </p>
           {!loading && content?.options?.length > 0 && (
             <div className="mt-2 flex flex-wrap gap-1 items-center">
-              <span className="text-xs text-neutral-600">Available in:</span>
+              <span className="text-xs text-neutral-700">Available in:</span>
               {content.options.map((opt, index) => (
                 <span
                   key={index}
