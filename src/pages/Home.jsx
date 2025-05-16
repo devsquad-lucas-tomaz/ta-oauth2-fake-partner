@@ -81,10 +81,10 @@ function Home() {
             </div>
 
             {!implicit.authenticated && (
-                <div className="shadow-lg rounded-2xl px-3 py-5 bg-secondary-30 max-w-md w-full">
+                <div className="shadow-lg rounded-2xl px-3 py-5 bg-primary-30 max-w-md w-full">
                     <div className="flex">
                         <div className="flex-shrink-0">
-                            <InformationCircleIcon className="w-6 h-6 text-secondary-500" />
+                            <InformationCircleIcon className="w-6 h-6 text-primary-500" />
                         </div>
                         <div className="ml-3 text-sm text-neutral-900 not-prose">
                             <p className="break-all">
