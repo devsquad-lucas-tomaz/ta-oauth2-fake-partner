@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router';
 import Home from './pages/Home';
 import OAuthCallback from './pages/OAuthCallback';
 import Worksheets from './pages/Worksheets';
+import Worksheet from './pages/Worksheet';
 import NotFound from './pages/NotFound';
 import Navigation from './components/Navigation';
 
@@ -13,6 +14,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/worksheets" element={<Worksheets />} />
+            <Route path="/worksheet/:slug" element={<Worksheet />} />
             <Route path="/oauth/callback" element={<OAuthCallback />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
