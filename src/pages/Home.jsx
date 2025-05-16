@@ -5,6 +5,7 @@ import Input from '../components/Input';
 import { setClientSecret, setClientId, setServer, authenticatedImplicit, unauthenticatedImplicit } from '../store/credentialSlice';
 import { toast } from 'react-toastify';
 import api from '../services/api';
+import handleAuthorize from '../services/authorizationCode';
 
 function Home() {
     const { client_id, client_secret, server, implicit } = useSelector((state) => state.credentials);
@@ -83,7 +84,7 @@ function Home() {
                         <b>Note:</b> When creating the token, use &nbsp;
                         <span className="font-medium text-xs underline">{window.location.origin}/oauth/callback</span> as callback URI.
                     </p>
-                    <Button className="w-full mt-2">Go to Authorize URL</Button>
+                    <Button className="w-full mt-2" onClick={handleAuthorize}>Go to Authorize URL</Button>
                 </div>
             )}
             {errorResponse && (
