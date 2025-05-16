@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import { InformationCircleIcon } from '@heroicons/react/24/solid';
 import { setClientSecret, setClientId, setServer, authenticatedImplicit, unauthenticatedImplicit } from '../store/credentialSlice';
 import { toast } from 'react-toastify';
 import api from '../services/api';
@@ -40,7 +41,7 @@ function Home() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50 px-4">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-neutral-50 space-y-6 px-4">
             <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md w-full">
                 <h1 className="text-2xl font-bold text-secondary-500 mb-2">Hello, dear Partner 👋</h1>
                 <p className="text-neutral-600 mb-6">Welcome! Please enter your <strong>Client ID</strong> and <strong>Client Secret</strong> to begin.</p>
@@ -78,12 +79,27 @@ function Home() {
                     </Button>
                 </form>
             </div>
+
+            {!implicit.authenticated && (
+                <div className="shadow-lg rounded-2xl px-3 py-5 bg-secondary-30 max-w-md w-full">
+                    <div className="flex">
+                        <div className="flex-shrink-0">
+                            <InformationCircleIcon className="w-6 h-6 text-secondary-500" />
+                        </div>
+                        <div className="ml-3 text-sm text-neutral-900 not-prose">
+                            <p className="break-all">
+                                When creating the token, use &nbsp;
+                                    <span className="font-medium underline">{window.location.origin}/oauth/callback</span>
+                                &nbsp;as callback URI.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {implicit.authenticated && (
-                <div className="bg-white shadow-lg rounded-2xl p-8 my-6 max-w-md w-full">
-                    <p className="text-sm text-neutral-900">
-                        <b>Note:</b> When creating the token, use &nbsp;
-                        <span className="font-medium text-xs underline">{window.location.origin}/oauth/callback</span> as callback URI.
-                    </p>
+                <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md text-center w-full">
+                    <span class="text-base text-neutral-900">Generate the authorize URL</span>
                     <Button className="w-full mt-2" onClick={handleAuthorize}>Go to Authorize URL</Button>
                 </div>
             )}
