@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 @theme {
   /* Primary */
   --color-primary-30: #E2F0FF;
@@ -42,4 +46,13 @@
   --color-neutral-700: #555555;
   --color-neutral-800: #444444;
   --color-neutral-900: #333333;
+
+  --breakpoint-xs: 300px;
+  --breakpoint-sl: 451px;
+  --breakpoint-sn: 744px;
+  --breakpoint-so: 761px;
+  --breakpoint-pd: 1012px;
+  --breakpoint-lh: 1201px;
+  --breakpoint-xm: 1301px;
+  --breakpoint-fh: 1920px;
 }
