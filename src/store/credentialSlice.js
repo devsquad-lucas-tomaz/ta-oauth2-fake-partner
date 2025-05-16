@@ -8,12 +8,13 @@ const credentialSlice = createSlice({
     server: '',
     implicit: {
       authenticated: false,
-      access_token: ''
+      access_token: '',
     },
     explicit: {
       user: {},
       authenticated: false,
-      access_token: ''
+      access_token: '',
+      refresh_token: '',
     },
   },
   reducers: {
@@ -26,16 +27,41 @@ const credentialSlice = createSlice({
     setServer(state, action) {
       state.server = action.payload;
     },
-    authenticated(state, action) {
+    authenticatedImplicit(state, action) {
       state.implicit.authenticated = true;
       state.implicit.access_token = action.payload.access_token;
     },
-    unauthenticated(state) {
+    unauthenticatedImplicit(state) {
       state.implicit.authenticated = false;
       state.implicit.access_token = '';
+    },
+    authenticatedExplicit(state, action) {
+      state.explicit.authenticated = true;
+      state.explicit.access_token = action.payload.access_token;
+      state.explicit.refresh_token = action.payload.refresh_token || '';
+      state.explicit.user = action.payload.user || {};
+    },
+    unauthenticatedExplicit(state) {
+      state.explicit.authenticated = false;
+      state.explicit.access_token = '';
+      state.explicit.refresh_token = '';
+      state.explicit.user = {};
+    },
+    refreshTokenExplicit(state, action) {
+      state.explicit.access_token = action.payload.access_token;
+      state.explicit.refresh_token = action.payload.refresh_token || state.explicit.refresh_token;
     },
   },
 });
 
-export const { setClientId, setClientSecret, setServer, authenticated, unauthenticated } = credentialSlice.actions;
+export const {
+  setClientId,
+  setClientSecret,
+  setServer,
+  authenticatedImplicit,
+  unauthenticatedImplicit,
+  authenticatedExplicit,
+  unauthenticatedExplicit,
+  refreshTokenExplicit,
+} = credentialSlice.actions;
 export default credentialSlice.reducer;

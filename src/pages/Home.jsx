@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import { setClientSecret, setClientId, setServer, authenticated, unauthenticated } from '../store/credentialSlice';
+import { setClientSecret, setClientId, setServer, authenticatedImplicit, unauthenticatedImplicit } from '../store/credentialSlice';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import api from '../services/api';
 
 function Home() {
     const { client_id, client_secret, server, implicit } = useSelector((state) => state.credentials);
@@ -18,12 +18,12 @@ function Home() {
         setLoading(true);
 
         try {
-            const { data } = await axios.post(`${server}/oauth/token`, {
+            const { data } = await api.post('oauth/token', {
                 client_id,
                 client_secret,
                 grant_type: 'client_credentials',
             });
-            dispatch(authenticated(data));
+            dispatch(authenticatedImplicit(data));
             setErrorResponse(false);
             toast.success('Credentials saved successfully!');
         } catch (e){
@@ -32,7 +32,7 @@ function Home() {
                 data && setErrorResponse(JSON.stringify(data, null, 4));
             }
             toast.error('Failure to connect. Please check your credentials and server.');
-            dispatch(unauthenticated());
+            dispatch(unauthenticatedImplicit());
         }
         
         setLoading(false);
