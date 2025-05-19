@@ -103,8 +103,9 @@ function Home() {
                     <Button className="w-full mt-2" onClick={handleAuthorize}>Go to Authorize URL</Button>
                 </div>
             )}
+
             {errorResponse && (
-                <pre className="sm:mx-auto w-full sm:w-auto max-w-md rounded-md p-3 bg-neutral-900 text-neutral-50 overflow-y-auto my-6">{errorResponse}</pre>
+                <pre className="sm:mx-auto w-full sm:w-auto max-w-md rounded-md p-3 bg-neutral-900 text-neutral-50 overflow-y-auto">{errorResponse}</pre>
             )}
         </div>
   );
