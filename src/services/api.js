@@ -108,7 +108,7 @@ api.interceptors.response.use(
         }
       }
 
-      if (flow === 'explicit' && explicit.authenticated && error.response.data?.error === 'access_denied' && !originalRequest._retry) {
+      if (flow === 'explicit' && explicit.authenticated && error.response.data?.message === 'Unauthorized' && !originalRequest._retry) {
         originalRequest._retry = true;
 
         try {
